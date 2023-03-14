@@ -1,0 +1,27 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Mosquitto & Tailscale
+# Runs tailscaled
+# ==============================================================================
+declare -a options
+
+if ! bashio::config.has_value "tailscale_authkey" ; then
+    bashio::log.info 'No Tailscale auth-key provided, disabling Tailscale...'
+    s6-svc -O .
+    bashio::exit.ok
+fi
+
+
+bashio::log.info 'Starting Tailscaled...'
+
+options+=(--state=/data/tailscale/tailscaled.state)
+options+=(--statedir=/data/tailscale/)
+options+=(--no-logs-no-support)
+options+=(--tun=userspace-networking)
+
+# Run Tailscale
+if bashio::debug ; then
+    exec tailscaled "${options[@]}"
+else
+    exec tailscaled "${options[@]}" &> /dev/null
+fi

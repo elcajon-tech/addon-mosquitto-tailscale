@@ -1,0 +1,44 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Mosquitto & Tailscale
+# Runs after the machine has been logged in into the Tailscale network and
+# ==============================================================================
+declare -a options
+
+if ! bashio::config.has_value "tailscale_authkey" ; then
+    bashio::log.debug 'No Tailscale key provided, disabling Tailscale'
+    s6-svc -O .
+    bashio::exit.ok
+fi
+
+# Wait for socket to be available
+while ! bashio::fs.socket_exists "/var/run/tailscale/tailscaled.sock";
+do
+  sleep 1
+done
+
+# Wait for the network to be available and logged in
+while true;
+do
+  if tailscale status --json --peers=false --self=false \
+    | jq --exit-status '.BackendState == "Running" or .BackendState == "NeedsLogin"' &> /dev/null;
+  then
+    IFS=","
+
+    options+=(--hostname "$(bashio::addon.hostname)")
+
+    if bashio::config.true "enable_tailscale_ssh" ; then
+      options+=(--ssh=true)
+    else
+      options+=(--ssh=false)
+    fi
+    bashio::log.debug "--auth-key=$(bashio::config 'tailscale_authkey')"
+    options+=(--auth-key="$(bashio::config 'tailscale_authkey')")
+
+    bashio::log.info 'Starting Tailscale VPN...'
+    tailscale up "${options[@]}"
+    bashio::exit.ok
+  fi
+  # Well... wait a bit more
+  sleep 2
+done

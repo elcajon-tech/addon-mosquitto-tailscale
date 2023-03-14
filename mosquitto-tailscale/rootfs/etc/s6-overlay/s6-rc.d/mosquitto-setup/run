@@ -1,0 +1,72 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Mosquitto & Tailscale
+# Setup the mosquitto server
+# ==============================================================================
+readonly ACL="/etc/mosquitto/acl"
+readonly PW="/etc/mosquitto/pw"
+readonly SYSTEM_USER_PATH="/data/mosquitto"
+readonly SYSTEM_USER="/data/mosquitto/system_user.json"
+declare discovery_password
+declare password
+declare username
+declare log_level
+declare debug
+
+# Read or create system account data
+if ! bashio::fs.file_exists "${SYSTEM_USER}"; then
+  mkdir -p ${SYSTEM_USER_PATH}
+  discovery_password="$(pwgen 64 1)"
+  service_password="$(pwgen 64 1)"
+
+  # Store it for future use
+  bashio::var.json \
+    homeassistant "^$(bashio::var.json password "${discovery_password}")" \
+    addons "^$(bashio::var.json password "${service_password}")" \
+    > "${SYSTEM_USER}"
+else
+  # Read the existing values
+  discovery_password=$(bashio::jq "${SYSTEM_USER}" ".homeassistant.password")
+  service_password=$(bashio::jq "${SYSTEM_USER}" ".addons.password")
+fi
+
+# Initialize PW file
+touch ${PW}
+
+# Set up discovery user
+mosquitto_passwd -b ${PW} "homeassistant" "${discovery_password}"
+echo "user homeassistant" >> "${ACL}"
+echo "topic readwrite #" >> "${ACL}"
+
+# Set up service user
+mosquitto_passwd -b ${PW} "addons" "${service_password}"
+echo "user addons" >> "${ACL}"
+echo "topic readwrite #" >> "${ACL}"
+
+# Set username and password for the broker
+for login in $(bashio::config 'logins|keys'); do
+  bashio::config.require.username "logins[${login}].username"
+  bashio::config.require.password "logins[${login}].password"
+
+  username=$(bashio::config "logins[${login}].username")
+  password=$(bashio::config "logins[${login}].password")
+
+  bashio::log.info "Setting up user ${username}"
+  mosquitto_passwd -b ${PW} "${username}" "${password}"
+  echo "user ${username}" >> "${ACL}"
+  echo "topic readwrite #" >> "${ACL}"
+done
+
+log_level=$(bashio::config "log_level")
+if [ "${log_level}" == "debug" ] ; then
+    debug=true
+else
+    debug=false
+fi
+
+# Generate mosquitto configuration.
+bashio::var.json \
+  debug "^${debug}" \
+  | tempio \
+    -template /usr/share/tempio/mosquitto.gtpl \
+    -out /etc/mosquitto/mosquitto.conf
