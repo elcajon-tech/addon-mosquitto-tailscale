@@ -1,0 +1,44 @@
+# Home Assistant Add-on: Mosquitto & Tailscale
+
+[![Release][release-shield]][release] ![Project Stage][project-stage-shield] ![Project Maintenance][maintenance-shield]
+
+## About
+
+Eclipse Mosquitto is an open-source (EPL/EDL licensed) message broker that
+implements the MQTT protocol. Mosquitto is lightweight and is suitable for use
+on all devices from low power single board computers to full servers.
+For more information, please see [mosquitto].
+
+Tailscale is a zero config VPN, which installs on any device in minutes,
+including your Home Assistant instance.
+
+This add-on allows to publish your Mosquitto server securely with Tailscale.
+
+If you do not plan to access your Mosquitto server from outside your local
+server, you can also use the official [Home-Assistand add-on][mosquitto-ha]
+to set up your MQTT Mosquitto server.
+
+{% if channel == "edge" %}
+## WARNING! THIS IS AN EDGE VERSION!
+
+This Home Assistant Add-ons repository contains edge builds of add-ons.
+Edge builds add-ons are based upon the latest development version.
+
+- They may not work at all.
+- They might stop working at any time.
+- They could have a negative impact on your system.
+
+This repository was created for:
+
+- Anybody willing to test.
+- Anybody interested in trying out upcoming add-ons or add-on features.
+- Developers.
+
+{% endif %}
+
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
+[release-shield]: https://img.shields.io/badge/version-{{ version }}-blue.svg
+[release]: {{ repo }}/tree/{{ version }}
+[mosquitto]: https://mosquitto.org
+[mosquitto-ha]: https://github.com/home-assistant/addons/tree/master/mosquitto

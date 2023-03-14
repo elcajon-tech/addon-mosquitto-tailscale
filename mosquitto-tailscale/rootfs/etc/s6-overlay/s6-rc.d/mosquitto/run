@@ -1,0 +1,11 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Mosquitto & Tailscale
+# Runs mosquitto
+# ==============================================================================
+declare -a options
+
+options+=(-c /etc/mosquitto/mosquitto.conf)
+
+bashio::log.info "Starting mosquitto MQTT broker..."
+exec mosquitto "${options[@]}"
