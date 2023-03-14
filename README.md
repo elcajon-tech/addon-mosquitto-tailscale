@@ -50,7 +50,7 @@ using [this GitHub repository][ha-addons] or by clicking the button below.
 [commits]: https://github.com/elcajon-tech/addon-mosquitto-tailscale/commits/main
 [contributors]: https://github.com/elcajon-tech/addon-mosquitto-tailscale/graphs/contributors
 [docs]: https://github.com/elcajon-tech/addon-mosquitto-tailscale/blob/main/tailscale/DOCS.md
-[github-actions-shield]: https://github.com/elcajon-mosquitto-tech/addon-tailscale/workflows/CI/badge.svg
+[github-actions-shield]: https://github.com/elcajon-tech/addon-mosquitto-tailscale/workflows/CI/badge.svg
 [github-actions]: https://github.com/elcajon-tech/addon-mosquitto-tailscale/actions
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [issue]: https://github.com/elcajon-tech/addon-mosquitto-tailscale/issues
