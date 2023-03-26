@@ -2,9 +2,6 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:13.1.3
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
-# Copy in version file
-COPY versions.json /tmp/versions.json
-
 # Set S6 verbosity level
 ENV S6_VERBOSITY=1
 
