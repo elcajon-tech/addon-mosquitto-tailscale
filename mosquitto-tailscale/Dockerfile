@@ -2,9 +2,6 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:13.1.3
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
-# Copy in version file
-COPY versions.json /tmp/versions.json
-
 # Set S6 verbosity level
 ENV S6_VERBOSITY=1
 
@@ -13,6 +10,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
 ARG BUILD_ARCH=amd64
+ARG TAILSCALE_VERSION="v1.38.2"
 RUN \
     apk add --no-cache \
         ip6tables=1.8.8-r2 \
@@ -31,9 +29,8 @@ RUN \
     && if [ "${BUILD_ARCH}" = "amd64" ]; then ARCH="amd64"; fi \
     && if [ "${BUILD_ARCH}" = "i386" ]; then ARCH="386"; fi \
     \
-    && version=$(jq -r '."tailscale/tailscale"' /tmp/versions.json | sed 's/[[:alpha:]([:space:]]//g' ) \
     && curl -L -s \
-        "https://pkgs.tailscale.com/stable/tailscale_${version}_${ARCH}.tgz" \
+        "https://pkgs.tailscale.com/stable/tailscale_${TAILSCALE_VERSION#v}_${ARCH}.tgz" \
         | tar zxvf - -C /usr/local/bin/ --strip-components 1 \
     \
     && rm -f -r \
