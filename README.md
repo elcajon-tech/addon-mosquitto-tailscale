@@ -62,3 +62,5 @@ using [this GitHub repository][ha-addons] or by clicking the button below.
 [my-ha-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
 [my-ha-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Felcajon-tech%2Frepository-stable
 [ha-addons]: https://github.com/elcajon-tech/repository-stable
+[mosquitto]: https://mosquitto.org
+[mosquitto-ha]: https://github.com/home-assistant/addons/tree/master/mosquitto
