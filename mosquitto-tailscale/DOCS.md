@@ -104,4 +104,3 @@ you are troubleshooting.
 [mosquitto-integration]: https://www.home-assistant.io/integrations/mqtt/
 [mosquitto]: https://mosquitto.org
 [mosquitto-ha]: https://github.com/home-assistant/addons/tree/master/mosquitto
-
