@@ -102,3 +102,5 @@ you are troubleshooting.
 [my-ha-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
 [my-ha-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Felcajon%2Frepository-stable
 [mosquitto-integration]: https://www.home-assistant.io/integrations/mqtt/
+[mosquitto]: https://mosquitto.org
+[mosquitto-ha]: https://github.com/home-assistant/addons/tree/master/mosquitto
