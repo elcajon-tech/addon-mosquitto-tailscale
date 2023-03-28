@@ -15,6 +15,9 @@ arch:
 init: false
 watchdog: tcp://[HOST]:1883
 hassio_api: true
+map:
+  - config:rw
+  - share:rw
 discovery:
   - mqtt
 services:
@@ -26,10 +29,16 @@ devices:
 options:
   tailscale_authkey: ""
   logins: []
+  customize:
+    active: false
+    folder: /share/mosquitto
 schema:
   enable_tailscale_ssh: bool?
   tailscale_authkey: str?
   logins:
     - username: str
       password: password
+  customize:
+    active: bool
+    folder: str
   log_level: list(trace|debug|info|notice|warning|error|fatal)?

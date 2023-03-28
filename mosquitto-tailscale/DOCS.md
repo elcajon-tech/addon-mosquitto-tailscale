@@ -81,6 +81,24 @@ logins:
     password: passwd
 ```
 
+### Option: `customize.active`
+
+If set to `true` additional configuration files will be read, see the next option.
+
+Default value: `false`
+
+### Option: `customize.folder`
+
+The full path to the folder to read the additional configuration
+files (`*.conf`) from. The folders `/config` and `/share` are accessible inside
+this add-on.
+
+```yaml
+customize:
+  active: true
+  folder: /share/mosquitto
+```
+
 ### Option: `log_level`
 
 The `log_level` option controls the level of log output by the addon and can

@@ -67,6 +67,8 @@ fi
 # Generate mosquitto configuration.
 bashio::var.json \
   debug "^${debug}" \
+  customize "^$(bashio::config 'customize.active')" \
+  customize_folder "$(bashio::config 'customize.folder')" \
   | tempio \
     -template /usr/share/tempio/mosquitto.gtpl \
     -out /etc/mosquitto/mosquitto.conf
