@@ -64,6 +64,11 @@ else
     debug=false
 fi
 
+# Create customizing folder if customize is set to active
+if bashio::config.true "customize.active" ; then
+  mkdir -p $(bashio::config 'customize.folder')
+fi
+
 # Generate mosquitto configuration.
 bashio::var.json \
   debug "^${debug}" \
