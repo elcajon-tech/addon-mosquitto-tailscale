@@ -22,3 +22,7 @@ protocol mqtt
 
 listener 1884
 protocol websockets
+
+{{ if .customize }}
+include_dir {{ .customize_folder }}
+{{ end }}

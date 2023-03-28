@@ -64,9 +64,16 @@ else
     debug=false
 fi
 
+# Create customizing folder if customize is set to active
+if bashio::config.true "customize.active" ; then
+  mkdir -p $(bashio::config 'customize.folder')
+fi
+
 # Generate mosquitto configuration.
 bashio::var.json \
   debug "^${debug}" \
+  customize "^$(bashio::config 'customize.active')" \
+  customize_folder "$(bashio::config 'customize.folder')" \
   | tempio \
     -template /usr/share/tempio/mosquitto.gtpl \
     -out /etc/mosquitto/mosquitto.conf

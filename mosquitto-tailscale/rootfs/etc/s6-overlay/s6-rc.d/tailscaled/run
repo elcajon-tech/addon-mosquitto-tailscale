@@ -17,7 +17,6 @@ bashio::log.info 'Starting Tailscaled...'
 options+=(--state=/data/tailscale/tailscaled.state)
 options+=(--statedir=/data/tailscale/)
 options+=(--no-logs-no-support)
-options+=(--tun=userspace-networking)
 
 # Run Tailscale
 if bashio::debug ; then
