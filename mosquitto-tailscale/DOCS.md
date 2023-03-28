@@ -121,7 +121,7 @@ you are troubleshooting.
 
 ### How to connect two Mosquitto instances via Tailscale
 
-You can use the [Mosquitto bridging (chapter Configuring Bridges) ][mosquitto-bridging]
+You can use the [Mosquitto bridging (chapter Configuring Bridges)][mosquitto-bridging]
 feature to connect two Mosquitto instances via Tailscale.
 
 You need to activate the [customize option](#option-customizeactive) first.
