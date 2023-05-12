@@ -15,10 +15,10 @@ RUN \
     apk add --no-cache \
         ip6tables=1.8.9-r2 \
         ipcalc=1.0.2-r0 \
-        iproute2=6.0.0-r1 \
-        iptables=1.8.8-r2 \
-        mosquitto=2.0.15-r1 \
-        pwgen=2.08-r2 \
+        iproute2=6.3.0-r0 \
+        iptables=1.8.9-r2 \
+        mosquitto=2.0.15-r3 \
+        pwgen=2.08-r3 \
     \
     && ln -sf /sbin/xtables-nft-multi /sbin/ip6tables \
     && ln -sf /sbin/xtables-nft-multi /sbin/iptables \
