@@ -13,7 +13,6 @@ arch:
   - armv7
   - i386
 init: false
-watchdog: tcp://[HOST]:1883
 hassio_api: true
 map:
   - config:rw
