@@ -11,6 +11,9 @@ on:
       - synchronize
   workflow_dispatch:
 
+concurrency:
+   group: queue
+
 jobs:
   information:
     name: Gather add-on information
