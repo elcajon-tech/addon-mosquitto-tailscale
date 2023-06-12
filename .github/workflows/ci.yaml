@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-   group: queue
+  group: queue
 
 jobs:
   information:
